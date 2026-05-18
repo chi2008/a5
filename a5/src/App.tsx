@@ -15,9 +15,11 @@ import { GenresView } from './views/gen/Gen';
 import { SearchView } from './views/search/SearchView';
 import { TrailersView } from './views/tra/Trailers';
 import { TrailersMovieView } from './views/tra/TrailersMovie';
+import { UserProvider } from './context';
 
 export const App = () => {
   return (
+    <UserProvider>
     <Routes>
       <Route path="/" element={<HomeView />} />
 
@@ -49,5 +51,6 @@ export const App = () => {
       </Route>
       <Route path="*" element={<ErrorView />} />
     </Routes>
+    </UserProvider>
   );
 };
