@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type GridData = {
   id: number;
   imagePath: string | null;
@@ -6,7 +8,13 @@ export type GridData = {
   secondaryText?: string;
 };
 export type ChangeType = 'tv' | 'movie'| 'person';
-
+export type ImageAction = {
+  id: string;
+  icon: (active: boolean) => ReactNode;
+  active: (image: ImageCell) => boolean;
+  onClick: (image: ImageCell) => void;
+  position: "left" | "right";
+};
 export type SearchResultItem ={
   id: number;
   title?: string;
@@ -38,6 +46,7 @@ export type ShResponse = {
 export type ImageCell = {
   id: number;
   imagePath: string;
+  imageUrl: string;
   primaryText: string;
   secondaryText?: string;
   media?: ChangeType;

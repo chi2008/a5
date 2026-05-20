@@ -8,7 +8,6 @@ export function useTmdb<T>(url: string, params: Record<string, any>, deps: any[]
     const controller = new AbortController();
 
     const fetchData = async () => {
-      console.log("checking fetchData with api:", url, params);
       console.log("Request URL:", url, params)
       try {
         const response = await axios.get<T>(url, {

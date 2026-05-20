@@ -1,13 +1,17 @@
 import { ButtonGroup,ImageGrid, Pagination } from '@/components';
+import { ImageOverlay } from '@/components/ImageOverlay';
 import { MOVIE_POPULAR_ENDPOINT, MOVIE_TOP_RATED_ENDPOINT, MOVIE_UPCOMING, NOW_PLAYING_ENDPOINT } from '@/core/constants';
-import type { MediaResponse } from '@/core/types';
+import { favoriteAction } from '@/core/imageActions';
+import type { ImageCell, MediaResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
+import { useUserContext } from '@/hooks/useUserContext';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const Movies = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const interval = searchParams.get('interval') || 'now_playing';
   const Chooseinterval ={
@@ -32,6 +36,7 @@ export const Movies = () => {
   return (
       <section className="max-w-[1200px] mx-auto p-5 space-y-5">
         <h1 className="text-3xl font-bold mb-4">Movie</h1>
+        
         <ButtonGroup
           value={interval}
           onClick={(value: string) => {
@@ -44,8 +49,18 @@ export const Movies = () => {
             { label: 'Upcoming', value: 'upcoming'},
           ]}
         />
-      <ImageGrid results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)} />
-      <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
+      <ImageGrid 
+        results={gridData} 
+        onClick={(id) => navigate(`/movie/${id}/credits`)}
+      >
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)]} 
+            image={image} 
+          />
+        )}
+      </ImageGrid>
+
+      <Pagination page={page} maxPages={data?.total_pages} onClick={setPage} />
     </section>
   );
 };

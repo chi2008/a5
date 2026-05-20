@@ -15,11 +15,11 @@ import { GenresView } from './views/gen/Gen';
 import { SearchView } from './views/search/SearchView';
 import { TrailersView } from './views/tra/Trailers';
 import { TrailersMovieView } from './views/tra/TrailersMovie';
-import { UserProvider } from './context';
+import { SettingsView } from './views/setting/SettingsView';
+import { FavoritesView } from './views/setting/FavoritesView';
 
 export const App = () => {
   return (
-    <UserProvider>
     <Routes>
       <Route path="/" element={<HomeView />} />
 
@@ -47,10 +47,11 @@ export const App = () => {
           <Route path="tvreviews" element={< TelevisionReviews/>}/>
           <Route path='trailers' element={<TrailersView/>}/>
         </Route>
+        <Route element={<FavoritesView />} path="/favorites" />
+          <Route element={<SettingsView />} path="/settings" />
         <Route path="/genres" element={<GenresView />}/>
-      </Route>
-      <Route path="*" element={<ErrorView />} />
+        </Route>
+        <Route path="*" element={<ErrorView />} />
     </Routes>
-    </UserProvider>
   );
 };
