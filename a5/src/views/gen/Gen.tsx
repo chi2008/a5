@@ -1,12 +1,16 @@
 import { ButtonGroup, ImageGrid, Pagination } from '@/components';
-import type { MediaResponse,ChangeType} from '@/core/types';
+import { ImageOverlay } from '@/components/ImageOverlay';
+import { favoriteAction } from '@/core/imageActions';
+import type { MediaResponse,ChangeType, ImageCell} from '@/core/types';
 import { useTmdb } from '@/hooks';
+import { useUserContext } from '@/hooks/useUserContext';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const GenresView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [MediaType, setMediaType] = useState<ChangeType>(searchParams.get('Type') as ChangeType || 'movie');
   const interval = searchParams.get('interval') || '28';
@@ -73,7 +77,18 @@ export const GenresView = () => {
         />
       </div>
 
-      <ImageGrid results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)} />
+      <ImageGrid 
+                    results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
+                    {(image) => (
+                      <ImageOverlay actions={
+                        MediaType === 'movie' 
+                          ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] 
+                          : []
+                      } 
+                        image={image} 
+                      />
+                    )}
+                  </ImageGrid>
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

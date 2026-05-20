@@ -57,7 +57,11 @@ export const TrendingView = () => {
       <ImageGrid 
               results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
               {(image) => (
-                <ImageOverlay actions={[favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)]} 
+                <ImageOverlay actions={
+                  MediaType === 'movie' 
+                    ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] 
+                    : []
+                } 
                   image={image} 
                 />
               )}

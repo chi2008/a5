@@ -8,13 +8,12 @@ import { useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-  const TMDB_PARAMS = { append_to_response: 'videos' };
 
 export const MovieView = () => {
   const navigate = useNavigate();
   const { favorites, toggleFavorite } = useUserContext();
   const { id } = useParams();
-  const { data } = useTmdb<MovieRepsonse>(`${MOVIE_ENDPOINT}/${id}`, TMDB_PARAMS, [id]);
+  const { data } = useTmdb<MovieRepsonse>(`${MOVIE_ENDPOINT}/${id}`, { append_to_response: 'videos' }, [id]);
 
   
 
@@ -40,6 +39,7 @@ export const MovieView = () => {
                 onClick={() =>
                   toggleFavorite({
                     id: data.id,
+                    imagePath: getImageUrl(data.poster_path),
                     imageUrl: getImageUrl(data.poster_path),
                     primaryText: data.title,
                   })
