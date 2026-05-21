@@ -1,7 +1,7 @@
 import { ImageGrid, Pagination } from '@/components';
 import { ImageOverlay } from '@/components/ImageOverlay';
 import { SEARCH_ENDPOINT } from '@/core/constants';
-import { favoriteAction } from '@/core/imageActions';
+import { cartAction, favoriteAction } from '@/core/imageActions';
 import type { ChangeType, ImageCell, ShResponse } from '@/core/types';
 import { useDebounce, useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
@@ -46,19 +46,14 @@ export const SearchView = () => {
   return (
     <section className="mx-auto w-full max-w-7xl space-y-5 p-5">
       <h1 className="mb-4 text-3xl font-bold">Search for:{debouncedQuery}</h1>
-      <ImageGrid 
-                    results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
-                    {(image) => (
-                      <ImageOverlay actions={
-                        MediaType === 'movie' 
-                          ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] 
-                          : []
-                      } 
-                        image={image} 
-                      />
-                    )}
-                  </ImageGrid>
-
+    <ImageGrid 
+      results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
+        {(image) => (
+          <ImageOverlay actions={MediaType === 'movie' ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] : []} 
+            image={image} 
+          />
+        )}
+            </ImageGrid>
       {data && data.results && data.results.length > 0 ? (
   <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
 ) : (

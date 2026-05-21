@@ -6,12 +6,14 @@ import type { MovieRepsonse } from '@/core/types';
 import { getImageUrl } from '@/core/utils/images';
 import { useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export const MovieView = () => {
   const navigate = useNavigate();
   const { favorites, toggleFavorite } = useUserContext();
+  const{ cart, toggleCart } = useUserContext();
+
   const { id } = useParams();
   const { data } = useTmdb<MovieRepsonse>(`${MOVIE_ENDPOINT}/${id}`, { append_to_response: 'videos' }, [id]);
 
@@ -34,31 +36,31 @@ export const MovieView = () => {
           <img className="w-[220px] h-[330px] object-cover rounded-xl" src={`${IMAGE_BASE_URL}${data?.poster_path}`} alt={data?.title} />
           <div className="flex-1 space-y-4">
             <h1 className="text-3xl font-bold">{data.title}</h1>
-            <button
+
+               <button
                 className="rounded-full p-2 transition hover:bg-black/40"
-                onClick={() =>
-                  toggleFavorite({
+                onClick={() => {if (favorites.has(data.id)) {toggleFavorite(data);}
+                  toggleCart({
                     id: data.id,
                     imagePath: getImageUrl(data.poster_path),
                     imageUrl: getImageUrl(data.poster_path),
                     primaryText: data.title,
                   })
-                }
+                }}
               >
-                {favorites.has(data.id) ? (
-                  <FaHeart className="text-blue-500" size={ICON_SIZE} />
+                {cart.has(data.id) ? (
+                  <FaShoppingCart className="text-blue-500" size={ICON_SIZE} />
                 ) : (
-                  <FaRegHeart className="text-white" size={ICON_SIZE} />
+                  <FaShoppingCart className="text-white" size={ICON_SIZE} />
                 )}
               </button>
+
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <DetailItem label="Release" value={data.release_date} />
-              <DetailItem label="Rating" value={data.vote_average} />
-            <p className="text-gray-300">{data.overview}</p>
+            <div className="mt-auto flex flex-wrap gap-4 pt-2">
             
             <LinkGroup
               options={[
+                { label: 'Summary', to: 'summary' },
                 { label: 'Credits', to: 'credits' },
                 { label: 'Reviews', to: 'reviews' },
                 { label: 'Trailers', to: 'trailers'},

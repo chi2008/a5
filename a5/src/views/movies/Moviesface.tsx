@@ -1,7 +1,7 @@
 import { ButtonGroup,ImageGrid, Pagination } from '@/components';
 import { ImageOverlay } from '@/components/ImageOverlay';
 import { MOVIE_POPULAR_ENDPOINT, MOVIE_TOP_RATED_ENDPOINT, MOVIE_UPCOMING, NOW_PLAYING_ENDPOINT } from '@/core/constants';
-import { favoriteAction } from '@/core/imageActions';
+import { cartAction, favoriteAction } from '@/core/imageActions';
 import type { ImageCell, MediaResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
@@ -23,11 +23,18 @@ export const Movies = () => {
   const Choose = Chooseinterval[interval]
   const { data } = useTmdb<MediaResponse>(Choose, { page }, [Choose, page]);
 
-  const gridData = (data?.results ?? []).map((result) => ({
-    id: result.id,
-    imagePath: result.poster_path,
-    primaryText: result.original_title,
-  }));
+  const gridData = (data?.results ?? []).map((result) => {
+    const releaseYear = result.release_date ? new Date(result.release_date).getFullYear() : 2026;
+    const calculatedPrice = 19.99-(2026 - releaseYear);
+    const finalPrice = Math.max(4.99, calculatedPrice);
+
+    return {
+      id: result.id,
+      imagePath: result.poster_path,
+      primaryText: result.original_title,
+      secondaryText: `$${finalPrice.toFixed(2)}`
+  };
+});
 
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -50,7 +57,7 @@ export const Movies = () => {
           ]}
         />
       <ImageGrid 
-        results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)}>
+        results={gridData} onClick={(id) => navigate(`/movie/${id}/summary`)}>
         {(image) => (
           <ImageOverlay actions={[favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)]} 
             image={image} 

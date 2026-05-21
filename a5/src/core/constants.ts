@@ -32,3 +32,4 @@ export const IMAGE_PLACEHOLDER = 'https://placehold.co/300x450?text=No+Image';
 
 export const USERNAME_KEY = 'userName';
 export const FAVORITES_KEY = 'favorites';
+export const CART_KEY = 'cart';

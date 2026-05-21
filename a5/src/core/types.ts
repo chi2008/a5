@@ -61,6 +61,11 @@ export type MovieRepsonse = {
   backdrop_path: string;
   release_date: string;
   vote_average: string;
+  runtime: number;
+  genres: Array<{
+    id: number;
+    name: string;
+  }>;
   videos?: {
     results: Array<{
       key: string;
@@ -113,6 +118,8 @@ export type EpisodeResponse = {
 
 export type MediaResponse = {
   results: Array<{
+    [x: string]: any;
+    release_date?: string;
     id: number;
     original_title?: string;
     name?: string;

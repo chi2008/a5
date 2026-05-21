@@ -1,6 +1,6 @@
 import { ButtonGroup, ImageGrid, Pagination } from '@/components';
 import { ImageOverlay } from '@/components/ImageOverlay';
-import { favoriteAction } from '@/core/imageActions';
+import { cartAction, favoriteAction } from '@/core/imageActions';
 import type { MediaResponse,ChangeType, ImageCell} from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
@@ -78,17 +78,16 @@ export const GenresView = () => {
       </div>
 
       <ImageGrid 
-                    results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
-                    {(image) => (
-                      <ImageOverlay actions={
-                        MediaType === 'movie' 
-                          ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] 
-                          : []
-                      } 
-                        image={image} 
-                      />
-                    )}
-                  </ImageGrid>
+        results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
+        {(image) => (
+          <ImageOverlay actions={MediaType === 'movie' 
+            ? [favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite)] 
+            : []
+          } 
+          image={image} 
+          />
+        )}
+          </ImageGrid>
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

@@ -17,6 +17,8 @@ import { TrailersView } from './views/tra/Trailers';
 import { TrailersMovieView } from './views/tra/TrailersMovie';
 import { SettingsView } from './views/setting/SettingsView';
 import { FavoritesView } from './views/setting/FavoritesView';
+import { CartView } from './views/setting/CartView';
+import { SummaryView } from './views/movies/SummaryView';
 
 export const App = () => {
   return (
@@ -35,6 +37,7 @@ export const App = () => {
         <Route path='/television' element={<Television/>}/>
 
         <Route path="/movie/:id" element={<MovieView />}>
+          <Route path="summary" element={<SummaryView />} />
           <Route path="credits" element={<CreditsView />} />
           <Route path="reviews" element={<ReviewsView />} />
           <Route path='trailers' element={<TrailersMovieView/>}/>
@@ -49,6 +52,7 @@ export const App = () => {
         </Route>
         <Route element={<FavoritesView />} path="/favorites" />
           <Route element={<SettingsView />} path="/settings" />
+          <Route element={<CartView />} path="/cart" />
         <Route path="/genres" element={<GenresView />}/>
         </Route>
         <Route path="*" element={<ErrorView />} />
