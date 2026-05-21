@@ -79,11 +79,8 @@ export const CartView = () => {
                       </span>
                     </td>
 
-                    {/* 类型 (这里暂时默认为 Movie，或者你可以用路由判断) */}
                     <td className="p-4 text-gray-400">Movie</td>
-                    {/* 价格 */}
                     <td className="p-4 font-medium">{item.secondaryText}</td>
-                    {/* 移除与收藏操作 */}
                     <td className="p-4">
 
                       <div className="flex items-center justify-center space-x-4 text-lg">

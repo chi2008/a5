@@ -30,6 +30,7 @@ export const Movies = () => {
 
     return {
       id: result.id,
+      type: 'movie',
       imagePath: result.poster_path,
       primaryText: result.original_title,
       secondaryText: `$${finalPrice.toFixed(2)}`
