@@ -49,7 +49,7 @@ export type ImageCell = {
   imageUrl: string;
   primaryText: string;
   secondaryText?: string;
-  media?: ChangeType;
+  type?: ChangeType;
 };
 
 

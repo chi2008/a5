@@ -36,12 +36,14 @@ export const MovieView = () => {
           <img className="w-[220px] h-[330px] object-cover rounded-xl" src={`${IMAGE_BASE_URL}${data?.poster_path}`} alt={data?.title} />
           <div className="flex-1 space-y-4">
             <h1 className="text-3xl font-bold">{data.title}</h1>
+                <DetailItem label="" value={data.genres.map(g => g.name).join(', ')} />
 
                <button
                 className="rounded-full p-2 transition hover:bg-black/40"
                 onClick={() => {if (favorites.has(data.id)) {toggleFavorite(data);}
                   toggleCart({
                     id: data.id,
+                    type: 'movie',
                     imagePath: getImageUrl(data.poster_path),
                     imageUrl: getImageUrl(data.poster_path),
                     primaryText: data.title,

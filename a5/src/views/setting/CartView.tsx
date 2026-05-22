@@ -10,10 +10,10 @@ export const CartView = () => {
   const cartItems = Array.from(cart.values());
 
   const subtotal = cartItems.reduce((sum, item) => {
-  const priceStr = item.secondaryText ? item.secondaryText.replace('$', '') : '4.99';
-  const priceNum = parseFloat(priceStr) || 4.99; 
-  return sum + priceNum;
-    }, 0);
+    const priceStr = item.secondaryText ? item.secondaryText.replace('$', '') : '4.99';
+    const priceNum = parseFloat(priceStr) || 4.99 ; 
+    return sum + priceNum;
+  }, 0);
   const taxes = subtotal * 0.13;
   const total = subtotal + taxes;
 
@@ -79,7 +79,7 @@ export const CartView = () => {
                       </span>
                     </td>
 
-                    <td className="p-4 text-gray-400">Movie</td>
+                    <td className="p-4 text-gray-400">{item.type}</td>
                     <td className="p-4 font-medium">{item.secondaryText}</td>
                     <td className="p-4">
 
