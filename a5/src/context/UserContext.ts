@@ -10,6 +10,11 @@ export type UserContextType ={
         setUserName: (userName: string) => void;
         toggleFavorite: (image: ImageCell) => void;
         toggleCart: (image: ImageCell) => void;
+
+        selectedMovies: string[];
+        setSelectedMovies: React.Dispatch<React.SetStateAction<string[]>>;
+        selectedTV: string[];
+        setSelectedTV: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);

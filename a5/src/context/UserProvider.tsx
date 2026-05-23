@@ -2,11 +2,14 @@ import { UserContext } from '@/context';
 import { CART_KEY, FAVORITES_KEY, USERNAME_KEY } from '@/core/constants';
 import type { ImageCell } from '@/core/types';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 
 type UserProviderProps = {
   children: ReactNode;
 };
+
+const DEFAULT_MOVIES = ["Action", "Adventure", "Animation", "Crime", "Family", "Fantasy", "History", "Horror", "Mystery", "Sci-Fi"];
+const DEFAULT_TV = ["Action", "Animation", "Comedy", "Crime", "Documentary", "Drama", "Family", "Kids", "Mystery", "Sci-Fi"];
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [userName, setUserName] = useLocalStorage<string, string>(USERNAME_KEY, 'User');
@@ -19,6 +22,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     serialize: (map) => Array.from(map.entries()),
     deserialize: (entries) => new Map(entries),
   });
+
+  const [selectedMovies, setSelectedMovies] = useState<string[]>(DEFAULT_MOVIES);
+  const [selectedTV, setSelectedTV] = useState<string[]>(DEFAULT_TV);
 
     const toggleCart = (image: ImageCell) => {
     setCart((prev) => {
@@ -55,6 +61,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         setUserName,
         toggleFavorite,
         toggleCart,
+        setCart,
+        setFavorites,
+        selectedMovies,
+        setSelectedMovies,
+        selectedTV,
+        setSelectedTV,
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 import { ButtonGroup, ImageGrid, Pagination } from '@/components';
 import { ImageOverlay } from '@/components/ImageOverlay';
-import { cartAction, favoriteAction } from '@/core/imageActions';
+import {  favoriteAction } from '@/core/imageActions';
 import type { MediaResponse,ChangeType, ImageCell} from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useUserContext } from '@/hooks/useUserContext';
@@ -10,19 +10,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 export const GenresView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const { favorites, toggleFavorite } = useUserContext();
+  const { favorites, toggleFavorite, selectedMovies, selectedTV, } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [MediaType, setMediaType] = useState<ChangeType>(searchParams.get('Type') as ChangeType || 'movie');
   const interval = searchParams.get('interval') || '28';
   const { data } = useTmdb<MediaResponse>(`https://api.themoviedb.org/3/discover/${MediaType}`, {page,with_genres: interval}, [page, interval, MediaType]);
-
+  
+  
   const gridData = (data?.results ?? []).map((result) => ({
     id: result.id,
     imagePath: result.poster_path,
     primaryText: result.original_title || result.name,
   })); 
 
-  const movie = [
+  const movietype = [
     { label: 'Action', value: '28' }, 
     { label: 'Advencture', value: '12' },
     { label: 'Animation', value: '16' },
@@ -46,12 +47,25 @@ export const GenresView = () => {
     { label: 'Mystery', value: '9648' },
     { label: 'Sci-Fi', value: '10765' },
   ];
+  
+  const filteredMovies = movietype.filter((item) => selectedMovies.includes(item.label));//control the genre list by user setting then give genre options to user
+  const filteredTVs = tv.filter((item) => selectedTV.includes(item.label));
+
   const Change = (type: ChangeType) => {
-    setMediaType(type);
-    setPage(1); 
-    const defaultGenreId = type === 'tv' ? tv[0].value : movie[0].value;
-    setSearchParams({ interval: defaultGenreId, type: type });
-  };
+  setMediaType(type);
+  setPage(1);
+
+  const currenttype = type === "movie" ? filteredMovies : filteredTVs;
+  
+  const defaultGenreId = currenttype.length > 0 
+    ? currenttype[0].value 
+    : (type === "movie" ? "28" : "10759");
+
+  setSearchParams({ 
+    interval: defaultGenreId, 
+    type: type 
+  });
+};
   
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -63,20 +77,22 @@ export const GenresView = () => {
         <ButtonGroup
           value={MediaType}
           options={[
-            { label: 'Movie', value: 'movie' },
-            { label: 'Tv', value: 'tv' },
-          ]}
-         onClick={(value) => Change(value as ChangeType)}
-        />
+              { label: "Movie", value: "movie" },
+              { label: "Tv", value: "tv" }
+            ]}
+            onClick={(value) => Change(value as ChangeType)} 
+          />
         </div>
         <div> 
         <ButtonGroup
-          value={interval}
-          options={(MediaType === 'movie' ? movie : tv)}
-          onClick={(value) => setSearchParams({ interval: value })}
-        />
-      </div>
-
+        value={searchParams.get("interval") || (MediaType === "movie" ? "28" : "10759")}
+        options={MediaType === "movie" ? filteredMovies : filteredTVs}
+        onClick={(value) => {
+        setPage(1); 
+        setSearchParams({ interval: value, type: MediaType });
+        }}
+      />
+        </div>
       <ImageGrid 
         results={gridData} onClick={(id) => navigate(`/${MediaType}/${id}`)}>
         {(image) => (
@@ -89,6 +105,7 @@ export const GenresView = () => {
         )}
           </ImageGrid>
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
+
     </section>
   );
 };

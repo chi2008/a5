@@ -13,11 +13,14 @@ export const MovieView = () => {
   const navigate = useNavigate();
   const { favorites, toggleFavorite } = useUserContext();
   const{ cart, toggleCart } = useUserContext();
+  
 
   const { id } = useParams();
   const { data } = useTmdb<MovieRepsonse>(`${MOVIE_ENDPOINT}/${id}`, { append_to_response: 'videos' }, [id]);
 
-  
+  const releaseYear = data?.release_date ? new Date(data.release_date).getFullYear() : 2026;
+  const calculatedPrice = 19.99-(2026 - releaseYear);
+  const finalPrice = Math.max(4.99, calculatedPrice);
 
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -47,6 +50,7 @@ export const MovieView = () => {
                     imagePath: getImageUrl(data.poster_path),
                     imageUrl: getImageUrl(data.poster_path),
                     primaryText: data.title,
+                    secondaryText: `$${finalPrice.toFixed(2)}`
                   })
                 }}
               >
