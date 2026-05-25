@@ -1,7 +1,6 @@
-import { ImageGrid } from '@/components';
 import { DetailItem } from '@/components/DetailItem';
 import { MOVIE_ENDPOINT } from '@/core/constants';
-import type { CreditsResponse, MovieRepsonse } from '@/core/types';
+import type { MovieRepsonse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useParams } from 'react-router-dom';
 

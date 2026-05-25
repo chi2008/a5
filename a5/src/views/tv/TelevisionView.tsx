@@ -37,6 +37,7 @@ export const TelevisionView = () => {
             
             <LinkGroup
               options={[
+                { label: 'Summary', to: 'summary' },
                 { label: 'Seasons', to: 'seasons' },
                 { label: 'Credits', to: 'tvcredits' },
                 { label: 'Reviews', to: 'tvreviews' },

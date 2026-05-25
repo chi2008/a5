@@ -19,6 +19,7 @@ import { SettingsView } from './views/setting/SettingsView';
 import { FavoritesView } from './views/setting/FavoritesView';
 import { CartView } from './views/setting/CartView';
 import { SummaryView } from './views/movies/SummaryView';
+import { TVSummaryView } from './views/tv/Tvsummary';
 
 export const App = () => {
   return (
@@ -44,6 +45,7 @@ export const App = () => {
         </Route>
 
         <Route path="/tv/:id" element={<TelevisionView />}>
+          <Route path="summary" element={<TVSummaryView />} />
           <Route path="seasons" element={<SeasonView />} />
           <Route path="season/:seasonNumber" element={<EpisodeView />} />
           <Route path="tvcredits" element={<TelevisionCredits />} />

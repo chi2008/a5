@@ -40,10 +40,10 @@ export const SettingsView = () => {
     <section className="mx-auto max-w-7xl space-y-5 p-5">
       <button
         className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition"
-        onClick={() => window.history.back()}
-      >
+        onClick={() => window.history.back()}>
         Back
       </button>
+
       <h1 className="font-bold text-3xl">Settings</h1>
       <div className="max-w-md space-y-4 rounded-2xl border border-gray-700 bg-gray-900 p-6">
         <div>
@@ -89,7 +89,6 @@ export const SettingsView = () => {
         <div className="space-y-6 rounded-2xl border border-gray-700 bg-gray-900 p-6">
           <div>
             <h2 className="font-semibold text-lg">Preferences</h2>
-            <p className="text-gray-400 text-sm">Choose genres you like</p>
           </div>
 
           <div className="space-y-3">

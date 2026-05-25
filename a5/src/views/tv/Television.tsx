@@ -44,7 +44,7 @@ export const Television = () => {
             { label: 'Top Rate', value: 'tv_top_rated'},
           ]}
         />
-        <ImageGrid results={gridData} onClick={(id) => navigate(`/tv/${id}/seasons`)} />
+        <ImageGrid results={gridData} onClick={(id) => navigate(`/tv/${id}/summary`)} />
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

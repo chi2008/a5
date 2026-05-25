@@ -48,7 +48,7 @@ export const Header = () => {
             onClick={searchChange}
           />
       </nav>
-      <div className="flex items-center">
+      <div className="flex justify-end">
             <h1 className="mr-4 text-xl text-gray-300">{userName}</h1>
 
             <button onClick={() => navigate('/favorites')} className="relative rounded-full p-2 transition hover:bg-gray-700">

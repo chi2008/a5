@@ -84,6 +84,9 @@ export type TvResponse = {
   backdrop_path: string;
   first_air_date: string;
   vote_average: string;
+  number_of_episodes: number;
+  number_of_seasons: number;
+  status: string;
   videos?: {
     results: Array<{
       key: string;

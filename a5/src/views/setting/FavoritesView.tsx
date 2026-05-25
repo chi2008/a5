@@ -26,15 +26,13 @@ return (
     <section className="mx-auto max-w-7xl space-y-6 p-5 text-white">
       <button
         className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition text-sm"
-        onClick={() => navigate(-1)}
-      >
+        onClick={() => navigate(-1)}>
         Back
       </button>
 
       <button
         onClick={handleEmptyHeart}
-        className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded transition text-sm font-semibold"
-      >
+        className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded transition text-sm font-semibold">
         Clear Favorites
       </button>
 

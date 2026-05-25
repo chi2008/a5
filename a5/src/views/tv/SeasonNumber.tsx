@@ -12,8 +12,8 @@ const { data } = useTmdb<EpisodeResponse>( TV_SEASONNUMBER_ENDPOINT(id!, seasonN
   const gridData = (data?.episodes ?? []).map((result) => ({
     id: result.id,
     imagePath: result.still_path,
-    primaryText: result.episode_number,
-    secondaryText: result.name,
+    primaryText: result.episode_number + ': '+ result.name,
+    secondaryText: result.air_date ,
   }));
 
    if (!data) {
