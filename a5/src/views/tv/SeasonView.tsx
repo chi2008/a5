@@ -38,7 +38,7 @@ export const SeasonView = () => {
       <ImageGrid 
               results={gridData}>
               {(image) => (
-                <ImageOverlay actions={[favoriteAction((img: ImageCell) => favorites.has(img.id), toggleFavorite),cartAction((img: ImageCell) => cart.has(img.id),toggleCart)]} 
+                <ImageOverlay actions={[favoriteAction((img: ImageCell) =>  favorites.has(img.id), toggleFavorite),cartAction((img: ImageCell) => cart.has(img.id),toggleCart)]} 
                   image={image} 
                 />
               )}
