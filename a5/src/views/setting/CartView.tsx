@@ -24,7 +24,6 @@ export const CartView = () => {
       cartItems.forEach(item => toggleCart(item));
     }
   };
-
   return (
     <section className="mx-auto max-w-5xl space-y-6 p-5 text-white">
       <div className="flex items-center justify-between">

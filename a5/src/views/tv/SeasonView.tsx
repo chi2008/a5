@@ -36,13 +36,13 @@ export const SeasonView = () => {
       <h2 className="text-2xl font-bold mb-6">Seasons</h2>
       {!data.seasons.length && <p className="text-gray-400 text-center">No seasons available.</p>}
       <ImageGrid 
-              results={gridData}>
-              {(image) => (
-                <ImageOverlay actions={[favoriteAction((img: ImageCell) =>  favorites.has(img.id), toggleFavorite),cartAction((img: ImageCell) => cart.has(img.id),toggleCart)]} 
-                  image={image} 
-                />
-              )}
-            </ImageGrid>
+        results={gridData}>
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((img: ImageCell) =>  favorites.has(img.id), toggleFavorite),cartAction((img: ImageCell) => cart.has(img.id),toggleCart)]} 
+            image={image} 
+         />
+         )}
+      </ImageGrid>
     </section>
   );
 };
