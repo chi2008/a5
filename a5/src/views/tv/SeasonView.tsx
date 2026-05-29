@@ -21,7 +21,7 @@ export const SeasonView = () => {
       id: result.id,
       type:'tv',
       imagePath: result.poster_path,
-      primaryText: `Season ${result.season_number}`,
+      primaryText: data.name + '-'+ `Season ${result.season_number}`,
       secondaryText: `$${finalPrice.toFixed(2)}`,
       href: `/tv/${id}/season/${result.season_number}`
   };

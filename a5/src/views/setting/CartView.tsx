@@ -69,7 +69,7 @@ export const CartView = () => {
 
                     <td className="p-4 flex items-center space-x-4">
                       <img 
-                        src={item.imagePath || ""} 
+                        src={item.imagePath || item.imageUrl} 
                         alt={item.primaryText} 
                         className="h-16 w-12 object-cover rounded shadow"
                       />
