@@ -33,10 +33,20 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         cloned.delete(image.id);
       } else {
         cloned.set(image.id, image);
+
+        setFavorites((prevfavorite) => {
+        if (prevfavorite.has(image.id)) {
+          const clonedFavorite = new Map(prevfavorite);
+          clonedFavorite.delete(image.id);
+          return clonedFavorite;
+        }
+        return prevfavorite;
+      });
       }
       return cloned;
     });
   };
+
 
   const toggleFavorite = (image: ImageCell) => {
     setFavorites((prev) => {
@@ -46,6 +56,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         cloned.delete(image.id);
       } else {
         cloned.set(image.id, image);
+
+        setCart((prevCart) => {
+        if (prevCart.has(image.id)) {
+          const clonedCart = new Map(prevCart);
+          clonedCart.delete(image.id);
+          return clonedCart;
+        }
+        return prevCart; // 如果购物车没这件，就不动它
+      });
       }
 
       return cloned;

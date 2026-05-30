@@ -25,7 +25,7 @@ export const CartView = () => {
     }
   };
   return (
-    <section className="mx-auto max-w-5xl space-y-6 p-5 text-white">
+    <section className="mx-auto max-w-7xl space-y-6 p-8 text-white">
       <div className="flex items-center justify-between">
         <button
           className="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 transition text-sm"
@@ -44,7 +44,7 @@ export const CartView = () => {
         
       </div>
 
-      <h1 className="text-3xl font-bold">Cart</h1>
+      <h1 className="text-4xl font-bold">Cart</h1>
 
       {cart.size === 0 ? (
         <p className="mt-10 text-center text-gray-400">Your cart is empty.</p>
@@ -68,11 +68,15 @@ export const CartView = () => {
                   <tr key={item.id} className="hover:bg-gray-800/30 transition">
 
                     <td className="p-4 flex items-center space-x-4">
-                      <img 
-                        src={item.imagePath || item.imageUrl} 
-                        alt={item.primaryText} 
+                     <img 
+                        // 确保拼接了 TMDB 的官方图片地址
+                        src={item.imagePath.startsWith('http') 
+                        ? item.imagePath 
+                        : `https://image.tmdb.org/t/p/w500${item.imagePath}`
+                        } 
+                        alt={item.primaryText}
                         className="h-16 w-12 object-cover rounded shadow"
-                      />
+                        />
                       <span className="font-medium truncate max-w-[200px]">
                         {item.primaryText}
                       </span>
