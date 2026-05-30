@@ -63,7 +63,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
           clonedCart.delete(image.id);
           return clonedCart;
         }
-        return prevCart; // 如果购物车没这件，就不动它
+        return prevCart; 
       });
       }
 
