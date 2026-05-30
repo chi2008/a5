@@ -69,7 +69,6 @@ export const CartView = () => {
 
                     <td className="p-4 flex items-center space-x-4">
                      <img 
-                        // 确保拼接了 TMDB 的官方图片地址
                         src={item.imagePath.startsWith('http') 
                         ? item.imagePath 
                         : `https://image.tmdb.org/t/p/w500${item.imagePath}`
